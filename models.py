@@ -30,6 +30,11 @@ class Session(BaseModel):
         return hash(self.code)
 
 
-class YouTubeVideo(BaseModel):
-    title: str
-    description: str
+class VideoReviewSheetItem(BaseModel):
+    session_code: str = Field(..., serialization_alias="Code")
+    session_title: str = Field(..., serialization_alias="Title")
+    session_speaker_names: str | None = Field(..., serialization_alias="Speaker Names")
+    session_website_url: str = Field(..., serialization_alias="Website URL")
+    youtube_title: str = Field(..., serialization_alias="YouTube Title")
+    youtube_description: str = Field(..., serialization_alias="YouTube Description")
+    youtube_url: str | None = Field(None, serialization_alias="YouTube URL")

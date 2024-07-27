@@ -1,15 +1,15 @@
 from datetime import datetime
 
-from models import Session, YouTubeVideo
+from models import Session, VideoReviewSheetItem
 
 
-def session_to_youtube(session: Session) -> YouTubeVideo:
+def session_to_video_review_sheet_item(session: Session) -> VideoReviewSheetItem:
     if session.speaker_names is None:
-        title = f"EuroPython 2024 — {session.title}"
+        youtube_title = f"EuroPython 2024 — {session.title}"
     else:
-        title = f"{session.title} — {session.speaker_names}"
+        youtube_title = f"{session.title} — {session.speaker_names}"
 
-    description = f"""\
+    youtube_description = f"""\
 [EuroPython 2024 — {session.room} at {datetime.strftime(session.start, "%Y-%m-%d %H:%M")}]
 {session.website_url}
 
@@ -19,4 +19,14 @@ This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAl
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 """
 
-    return YouTubeVideo(title=title, description=description)
+    video_review_sheet_item = VideoReviewSheetItem(
+        session_code=session.code,
+        session_title=session.title,
+        session_speaker_names=session.speaker_names,
+        session_website_url=session.website_url,
+        youtube_title=youtube_title,
+        youtube_description=youtube_description,
+        youtube_url=None,  # TODO: fill this in
+    )
+
+    return video_review_sheet_item
