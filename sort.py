@@ -6,9 +6,11 @@ class Sort:
 
         if isinstance(data, dict):
             return {
-                key: Sort.sort_nested(value, sort_keys)
-                if isinstance(value, (dict, list))
-                else value
+                key: (
+                    Sort.sort_nested(value, sort_keys)
+                    if isinstance(value, (dict, list))
+                    else value
+                )
                 for key, value in data.items()
             }
         elif isinstance(data, list):
@@ -19,9 +21,11 @@ class Sort:
                 )
             else:
                 return sorted(
-                    Sort.sort_nested(item, sort_keys)
-                    if isinstance(item, (dict, list))
-                    else item
+                    (
+                        Sort.sort_nested(item, sort_keys)
+                        if isinstance(item, (dict, list))
+                        else item
+                    )
                     for item in data
                 )
         else:
