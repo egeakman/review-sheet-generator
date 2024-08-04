@@ -24,9 +24,10 @@ This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAl
         session_website_url=session.website_url,
         session_room=session.room,
         session_start=session.start,
+        session_date=session.session_date,
         youtube_title=youtube_title,
         youtube_description=youtube_description,
-        youtube_url=None,  # TODO: fill this in
+        youtube_url=None  # TODO: fill this in
     )
 
     return video_review_sheet_item
