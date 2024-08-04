@@ -24,6 +24,8 @@ https://creativecommons.org/licenses/by-nc-sa/4.0/
         session_title=session.title,
         session_speaker_names=session.speaker_names,
         session_website_url=session.website_url,
+        session_room=session.room,
+        session_start=session.start,
         youtube_title=youtube_title,
         youtube_description=youtube_description,
         youtube_url=None,  # TODO: fill this in

@@ -37,4 +37,6 @@ class VideoReviewSheetItem(BaseModel):
     session_website_url: str = Field(..., serialization_alias="Website URL")
     youtube_title: str = Field(..., serialization_alias="YouTube Title")
     youtube_description: str = Field(..., serialization_alias="YouTube Description")
+    session_room: str = Field(..., serialization_alias="room")
+    session_start: datetime = Field(..., serialization_alias="start") 
     youtube_url: str | None = Field(None, serialization_alias="YouTube URL")
