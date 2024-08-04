@@ -11,7 +11,7 @@ SESSIONS_URL = "https://programapi24.europython.eu/2024/sessions.json"
 SPEAKERS_URL = "https://programapi24.europython.eu/2024/speakers.json"
 SESSION_TYPES_TO_INCLUDE = ("talk", "keynote", "sponsored", "panel")
 EXCEPTIONS = ("Opening Session", "Closing Session")
-SORT_KEYS = ["Code", "Title"]
+SORT_KEYS = ["date","room", "start"]
 
 
 def sort_and_write_to_csv(sessions: list[VideoReviewSheetItem], output_file: str):

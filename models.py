@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 from pydantic import BaseModel, Field, computed_field
 
@@ -25,7 +25,11 @@ class Session(BaseModel):
     @computed_field
     def speaker_names(self) -> str | None:
         return ", ".join(self.speakers) or None
-
+    
+    @computed_field
+    def session_date(self) -> date:
+        return self.start.date()  
+    
     def __hash__(self):
         return hash(self.code)
 
@@ -37,4 +41,8 @@ class VideoReviewSheetItem(BaseModel):
     session_website_url: str = Field(..., serialization_alias="Website URL")
     youtube_title: str = Field(..., serialization_alias="YouTube Title")
     youtube_description: str = Field(..., serialization_alias="YouTube Description")
+    session_room: str = Field(..., serialization_alias="room")
+    session_start: datetime = Field(..., serialization_alias="start") 
     youtube_url: str | None = Field(None, serialization_alias="YouTube URL")
+    session_date: date = Field(..., serialization_alias="date") 
+    
