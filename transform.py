@@ -7,10 +7,18 @@ def session_to_video_review_sheet_item(session: Session) -> VideoReviewSheetItem
     if session.speaker_names is None:
         youtube_title = f"EuroPython 2024 — {session.title}"
     else:
-        youtube_title = f"{session.title} — {session.speaker_names}"
+        title_with_speakers = f"{session.title} — {session.speaker_names}"
+
+        # YouTube titles are limited to 100 characters,
+        # so we omit the speaker names if the title is too long
+        youtube_title = (
+            title_with_speakers if len(title_with_speakers) <= 100 else session.title
+        )
 
     youtube_description = f"""\
 [EuroPython 2024 — {session.room} at {datetime.strftime(session.start, "%Y-%m-%d %H:%M")}]
+
+{session.title} by {session.speaker_names}
 {session.website_url}
 
 {session.abstract}
