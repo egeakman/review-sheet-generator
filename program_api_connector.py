@@ -6,19 +6,19 @@ from models import Session, Speaker
 
 
 class ProgramAPIConnector:
-    def __init__(self):
+    def __init__(self) -> None:
         self.sessions: set[Session] = set()
         self.sessions_by_code: dict[str, Session] = defaultdict(Session)
 
         self._speakers: set[Speaker] = set()
         self._speaker_names_by_code: dict[str, str] = defaultdict(str)
 
-    def _fetch_url(self, url: str):
+    def _fetch_url(self, url: str) -> dict:
         response = requests.get(url)
         return response.json()
 
-    def _parse_sessions(self, sessions_data: dict):
-        sessions = set()
+    def _parse_sessions(self, sessions_data: dict) -> set[Session]:
+        sessions: set[Session] = set()
         for session_data in sessions_data.values():
             session = Session(
                 code=session_data["code"],
@@ -37,15 +37,15 @@ class ProgramAPIConnector:
             sessions.add(session)
         return sessions
 
-    def _parse_speakers(self, speakers_data: dict):
-        speakers = set()
+    def _parse_speakers(self, speakers_data: dict) -> set[Speaker]:
+        speakers: set[Speaker] = set()
         for speaker_data in speakers_data.values():
             speaker = Speaker.model_validate(speaker_data)
             self._speaker_names_by_code[speaker.code] = speaker.name
             speakers.add(speaker)
         return speakers
 
-    def fetch_data(self, sessions_url: str, speakers_url: str):
+    def fetch_data(self, sessions_url: str, speakers_url: str) -> None:
         speakers_data = self._fetch_url(speakers_url)
         sessions_data = self._fetch_url(sessions_url)
 
@@ -54,5 +54,5 @@ class ProgramAPIConnector:
         self.sessions = self._parse_sessions(sessions_data)
         self.sessions_by_code = {session.code: session for session in self.sessions}
 
-    def get_session(self, code: str):
+    def get_session(self, code: str) -> Session | None:
         return self.sessions_by_code.get(code)
